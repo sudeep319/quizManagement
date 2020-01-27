@@ -1,19 +1,28 @@
 import mongoose from 'mongoose';
 
-import User from '../modals/User.modal';
+import User from '../models/user.model';
 
-export const addDefaultUser = () => {
-
-    const newUser = new User();
-    newUser.user_name = 'admin'
-    newUser.role = 'admin'
-    newUser.setPassword('admin');
-	newUser.save((err, user) => {
+export const addDefaultUser = (fn) => {
+    User.find({ user_name: 'admin' }).exec((err, user) => {
 		if (err) {
-			return false
+			return res.json({ 'success': false, 'message': 'Some Error in List' });
         }
-        return true
-	});
+        if (user.length == 0) {
+            const newUser = new User();
+            newUser.user_name = 'admin'
+            newUser.role = 'admin'
+            newUser.setPassword('admin');
+            newUser.save((err, user) => {
+                if (err) {
+                    fn(false)
+                    return;
+                }
+                fn(true)
+                return;
+            });
+        }
+    })
+    
 }
 
 export const login = (req, res) => {

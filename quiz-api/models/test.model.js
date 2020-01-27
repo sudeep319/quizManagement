@@ -7,4 +7,4 @@ var Schema = mongoose.Schema({
     duration: Number
 });
 
-export default mongoose.model('Test', Schema);
+export default mongoose.model('TestModel', Schema);

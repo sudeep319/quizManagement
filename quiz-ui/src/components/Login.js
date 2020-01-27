@@ -17,6 +17,7 @@ export default class Login extends Component {
             loginSuccess: false,
             errMsg: 'Error in login'
         };
+
     }
 
     handleOnChangeUserName = (e) => {
@@ -37,24 +38,28 @@ export default class Login extends Component {
             password: this.state.password,
         };
         const loginResult = await APIService.Login(data);
-        if (loginResult.status !== 200 || !loginResult.data.success) {
+
+        if (!loginResult || loginResult.status !== 200 || !loginResult.data.success) {
             this.setState({
                 error: true,
                 loginSuccess: false,
                 errMsg: loginResult.data.message
             });
-        } else
+        } else{
             this.setState({
                 loginSuccess: true,
                 error: false,
             });
+            this.props.history.push('/admin-dashboard');
+        }
+            
     };
 
     render() {
         const { loginSuccess, error, errMsg } = this.state;
 
         return (
-            <div className="Login">
+            <div className="Login center">
                 <h1> Quiz Management Login </h1>
                 <form onSubmit={this.onSubmit}>
                     <div className="f-group">

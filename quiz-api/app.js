@@ -12,8 +12,9 @@ app.use(bodyParser.json());
 mongoose.connect('mongodb://localhost/quizManagement', {
   useNewUrlParser: true, useUnifiedTopology: true
 });
-const isuser = userControllet.addDefaultUser();
-console.log(isuser)
+userControllet.addDefaultUser(function(isuser){
+  console.log(isuser)
+});
 app.use('/api', quizRoutes);
 app.get('/', (req, res) => {
   return res.end('Api testing... it is working...');
