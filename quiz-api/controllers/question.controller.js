@@ -49,13 +49,24 @@ export const editQuestion = (req, res) => {
 }
 //Delete question
 export const deleteQuestion = (req, res) => {
-	Question.findByIdAndRemove(req.params.id, (err, question) => {
+	console.log(req.params.test_id)
+	Question.findOneAndDelete({_id:req.params.id}, (err, question) => {
 		if (err) {
 			return res.json({ 'success': false, 'message': 'Getting Error' });
 		}
-		else {
-			return res.json({ 'success': true, 'message': 'question Deleted' });
-		}
+		
+		Question.find({ test_id: req.params.test_id }).exec((err, questions) => {
+			if (err) {
+				return res.json({ 'success': false, 'message': 'Some Error in List', err });
+			}
+				TestModel.findOneAndUpdate({ _id: req.params.test_id }, { total_ques: questions.length, total_marks: questions.length }, { new: true }, (err, question) => {
+					if (err) {
+						return res.json({ 'success': false, 'message': 'Some error in update', 'error': err });
+					}
+					return res.json({ 'success': true, 'message': 'question successfully deleted' });
+				});
+				return;
+		});
 	})
 }
 // Add question

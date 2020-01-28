@@ -72,7 +72,6 @@ export default class AdminDashboard extends Component {
             option4: null,
             ans: 0,
             test_id: null,
-            selectedOption: null
         };
     }
     componentDidMount() {
@@ -132,7 +131,6 @@ export default class AdminDashboard extends Component {
     }
     onDeleteTest(id) {
         return APIService.deleteTest(id).then(result => {
-
         })
     }
     testList() {

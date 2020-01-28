@@ -12,6 +12,8 @@ router.route('/Question/:id')
       .get(questionControllet.getQuestion)
       .delete(questionControllet.deleteQuestion)
       .put(questionControllet.editQuestion);
+router.route('/Question/:id/:test_id')
+      .delete(questionControllet.deleteQuestion);
 router.route('/TestQuestion/:test_id')
       .get(questionControllet.getTestQuestionList);
       

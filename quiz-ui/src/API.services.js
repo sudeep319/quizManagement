@@ -63,8 +63,8 @@ export const addQuestion = (data)=>{
         return false
     })
 }
-export const deleteQuestion = (id)=>{
-    return axios.delete('http://localhost:4000/api/Question/' + id)
+export const deleteQuestion = (id,test_id)=>{
+    return axios.delete('http://localhost:4000/api/Question/' + id+'/'+test_id)
         .then(response => {
             return response
         })
