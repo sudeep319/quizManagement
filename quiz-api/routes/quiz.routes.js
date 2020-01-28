@@ -20,6 +20,8 @@ router.route('/TestQuestion/:test_id')
 router.route('/Login')
       .post(userController.login);
 
+router.route('/Score')
+      .post(questionControllet.getTestScore);
 router.route('/Test')
       .get(testController.getTestList)
       .post(testController.addTest);

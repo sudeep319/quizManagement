@@ -50,7 +50,10 @@ export default class Login extends Component {
                 loginSuccess: true,
                 error: false,
             });
+            if(loginResult.data.role == 'admin')
             this.props.history.push('/admin-dashboard');
+            else
+            this.props.history.push('/user-dashboard');
         }
             
     };

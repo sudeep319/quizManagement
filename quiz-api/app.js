@@ -15,6 +15,9 @@ mongoose.connect('mongodb://localhost/quizManagement', {
 userControllet.addDefaultUser(function(isuser){
   console.log(isuser)
 });
+userControllet.addDefaultAdmin(function(isadmin){
+  console.log(isadmin)
+})
 app.use('/api', quizRoutes);
 app.get('/', (req, res) => {
   return res.end('Api testing... it is working...');

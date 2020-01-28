@@ -97,6 +97,9 @@ export default class TestDetails extends Component {
     onAddQuesClick = (e) => {
         this.setState({ showAddQuestionDialog: true });
     }
+    goBack = ()=>{
+        this.props.history.goBack();
+    }
     SaveQues = () => {
         const dataObj = {
             question: this.state.ques,
@@ -133,6 +136,9 @@ export default class TestDetails extends Component {
         if (testObj) {
             return (
                 <div className="container">
+                     <Button onClick={this.goBack} color="primary">
+                                Back
+                        </Button>
                     <h4 className="mt-2">Test Details:</h4>
                     <Dialog open={showAddQuestionDialog} onClose={this.closeQuesDialog} aria-labelledby="form-dialog-title">
                         <DialogTitle id="form-dialog-title">Add Question</DialogTitle>

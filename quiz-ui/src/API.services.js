@@ -72,3 +72,12 @@ export const deleteQuestion = (id,test_id)=>{
             return false
         })
 }
+export const getTestScore = async (data) => {
+    return axios.post('http://localhost:4000/api/Score', data)
+    .then(res => {
+        return res
+    })
+    .catch(function (error) {
+        return false
+    })
+ }

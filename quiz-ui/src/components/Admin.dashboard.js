@@ -34,14 +34,14 @@ class Test extends React.Component {
     }
     render() {
         const { test } = this.props
-        const testDetails = { 
-            pathname: "/test-details", 
-            test_id: test._id 
-          };
+        const testDetails = {
+            pathname: "/test-details",
+            test_id: test._id
+        };
         return (
             <tr>
                 <td>
-                <Link to={testDetails} onClick={this.addQuestion.bind(this, test._id)}>{test.test_name}</Link></td>
+                    <Link to={testDetails} onClick={this.addQuestion.bind(this, test._id)}>{test.test_name}</Link></td>
                 <td>{test.total_ques}</td>
                 <td>{test.total_marks}</td>
                 <td>{test.duration}</td>
@@ -142,18 +142,35 @@ export default class AdminDashboard extends Component {
     onOptionChange = (e) => {
         this.setState({ ans: e.target.value });
     }
+    logout = (e) => {
+        this.props.history.push('/login');
+    }
     render() {
         const { error, errMsg, showAddTestDialog, showAddQuestionDialog, selectedOption } = this.state;
 
         return (
             <div className="container">
-                <h3>Online Quiz Management</h3>
-                <h5>Test List:</h5>
-                <button type="button"
-                    onClick={this.onAddTestClick}
-                    className="btn btn-primary">
-                    Add Test
+
+                <div className="row">
+                    <div className="col-md-10">
+                        <h3>Online Quiz Management</h3>
+                    </div>
+                    <div className="col-md-2">
+                        <Button onClick={this.logout} color="primary">
+                            Logout
+                        </Button>
+                    </div>
+                    <div className="col-md-2">
+                        <h5>Test List:</h5>
+                    </div>
+                    <div className="col-md-10 text-right">
+                        <button type="button"
+                            onClick={this.onAddTestClick}
+                            className="btn btn-primary">
+                            Add Test
                             </button>
+                    </div>
+                </div>
                 <Dialog open={showAddTestDialog} onClose={this.closeTestDialog} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Add Test</DialogTitle>
                     <DialogContent>

@@ -49,31 +49,28 @@ export const editQuestion = (req, res) => {
 }
 //Delete question
 export const deleteQuestion = (req, res) => {
-	console.log(req.params.test_id)
-	Question.findOneAndDelete({_id:req.params.id}, (err, question) => {
+	Question.findOneAndDelete({ _id: req.params.id }, (err, question) => {
 		if (err) {
 			return res.json({ 'success': false, 'message': 'Getting Error' });
 		}
-		
+
 		Question.find({ test_id: req.params.test_id }).exec((err, questions) => {
 			if (err) {
 				return res.json({ 'success': false, 'message': 'Some Error in List', err });
 			}
-				TestModel.findOneAndUpdate({ _id: req.params.test_id }, { total_ques: questions.length, total_marks: questions.length }, { new: true }, (err, question) => {
-					if (err) {
-						return res.json({ 'success': false, 'message': 'Some error in update', 'error': err });
-					}
-					return res.json({ 'success': true, 'message': 'question successfully deleted' });
-				});
-				return;
+			TestModel.findOneAndUpdate({ _id: req.params.test_id }, { total_ques: questions.length, total_marks: questions.length }, { new: true }, (err, question) => {
+				if (err) {
+					return res.json({ 'success': false, 'message': 'Some error in update', 'error': err });
+				}
+				return res.json({ 'success': true, 'message': 'question successfully deleted' });
+			});
+			return;
 		});
 	})
 }
 // Add question
 export const addQuestion = (req, res) => {
-	console.log(req.body)
 	const newQuestion = new Question();
-
 	newQuestion.question = req.body.question;
 	newQuestion.option1 = req.body.option1;
 	newQuestion.option2 = req.body.option2;
@@ -102,5 +99,37 @@ export const addQuestion = (req, res) => {
 			return;
 		});
 		return;
+	})
+}
+
+export const getTestScore = async(req, res) => {
+	var answers = req.body.answers;
+	var data = {
+		attemp: answers.length,
+		right: 0,
+		wrong: 0,
+		score: 0
+	}
+	for(var i=0; i<answers.length; i++){
+		var q = await getScore(answers[i].ques_id) 
+		for(var j=0; j<answers.length; j++){
+			if(q[0]._id == answers[j].ques_id){
+				if (q[0].ans == answers[j].ans) {
+					data.right++
+					data.score++
+				} else {
+					data.wrong++
+				}
+			}
+		}
+		
+	}
+	return res.json({ 'success': true, score:data });
+}
+const getScore = (ques_id) => {
+	return new Promise(function (resolve, reject) {
+		Question.find({ _id: ques_id }).exec((err, q) => {
+			resolve(q)
+		});
 	})
 }
