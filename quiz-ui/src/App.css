@@ -3,7 +3,13 @@
 .center {
   text-align: center;
 }
-
+.login-btn{
+  width: 50%;
+  margin: 20px!important;
+}
+.login-form{
+  width: 100%;
+}
 .Login{
   margin-top: 10%;
   margin-left: 30%;
@@ -12,9 +18,8 @@
   border: 1px solid gray;
 }
 .f-group{
-  text-align: left;
-  margin-left: 25%;
-  width: 50%;
+  padding-left: 20%;
+  padding-right: 20%;
 }
 .fields{
   margin-top: 10px;

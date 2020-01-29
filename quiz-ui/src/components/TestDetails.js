@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as APIService from '../API.services';
-import Message from './Message';
-import Error from './Error';
+
 // import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import Radio from '@material-ui/core/Radio';
@@ -131,7 +129,7 @@ export default class TestDetails extends Component {
         }, this)
     }
     render() {
-        const { error, errMsg, testObj, showAddQuestionDialog } = this.state;
+        const { testObj, showAddQuestionDialog } = this.state;
 
         if (testObj) {
             return (
@@ -264,10 +262,10 @@ export default class TestDetails extends Component {
 
                     </table>
                     <div className="row">
-                        <div className="col-md-2">
+                        <div className="col-md-10">
                             <h4>Questions:</h4>
                         </div>
-                        <div className="col-md-10">
+                        <div className="col-md-2 text-right">
                             <button type="button"
                                 onClick={this.onAddQuesClick}
                                 className="btn btn-primary">

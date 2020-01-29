@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import * as APIService from '../API.services';
 import Message from './Message';
 import Error from './Error';
-// import axios from 'axios';
+import * as Cookie from "js-cookie";
+import Button from '@material-ui/core/Button';
+
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 
 export default class Login extends Component {
@@ -43,57 +45,63 @@ export default class Login extends Component {
             this.setState({
                 error: true,
                 loginSuccess: false,
-                errMsg: loginResult.data.message
+                errMsg: loginResult ? loginResult.data.message : 'Server Error'
             });
-        } else{
+        } else {
             this.setState({
                 loginSuccess: true,
                 error: false,
             });
-            if(loginResult.data.role == 'admin')
-            this.props.history.push('/admin-dashboard');
+            Cookie.set('auth', loginResult.data.token)
+            localStorage.setItem("role", loginResult.data.role);
+            if (loginResult.data.role === 'admin')
+                this.props.history.push('/admin-dashboard');
             else
-            this.props.history.push('/user-dashboard');
+                this.props.history.push('/user-dashboard');
         }
-            
+
     };
 
     render() {
-        const { loginSuccess, error, errMsg } = this.state;
+        const { loginSuccess, error, errMsg, user_name, password } = this.state;
 
         return (
             <div className="Login center">
                 <h1> Quiz Management Login </h1>
-                <form onSubmit={this.onSubmit}>
                     <div className="f-group">
-                        <div className="fields">
-                            <div>
-                                <label> User Name: </label>
-                            </div>
-                            <input type="text"
-                                name="Username"
+                        <ValidatorForm
+                            className="login-form"
+                            ref="form"
+                            onSubmit={this.onSubmit}
+                            onError={errors => console.log(errors)}
+                        >
+                            <TextValidator
+                                label="Username"
                                 onChange={this.handleOnChangeUserName}
-                                autoComplete="Username"
-                                required />
-                        </div>
-                        <div className="fields">
-                            <div> <label> Password: </label> </div>
-                            <input type="password"
-                                name="Password"
+                                name="username"
+                                value={user_name}
+                                fullWidth
+                                validators={['required']}
+                                errorMessages={['this field is required']}
+                            />
+                            <TextValidator
+                                label="Password"
                                 onChange={this.handleOnChangePassword}
-                                autoComplete="Password"
-                                required />
-                        </div>
+                                name="password"
+                                value={password}
+                                fullWidth
+                                validators={['required']}
+                                errorMessages={['this field is required']}
+                            />
+                            <Button className="login-btn" variant="contained" type="submit" color="primary" disableElevation>
+                            Login
+                            </Button>
+                        </ValidatorForm>
+
+
 
                     </div>
-                    <div className="buttons">
-                        <button type="button"
-                            onClick={this.onSubmit}
-                            className="btn btn-primary">
-                            Login
-                            </button>
-                    </div>
-                </form>
+                    
                 {loginSuccess && <Message message='Login successfully' />}
                 {error && <Error message={errMsg} />}
             </div>

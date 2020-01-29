@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as APIService from '../API.services';
-import Message from './Message';
-import Error from './Error';
 import Button from '@material-ui/core/Button';
-
-// import axios from 'axios';
+import * as Cookie from "js-cookie";
 
 
 class Test extends React.Component {
@@ -60,11 +57,11 @@ export default class UserDashboard extends Component {
     }
 
     logout = (e) => {
+        Cookie.remove('auth');
+        localStorage.removeItem("role")
         this.props.history.push('/login');
     }
     render() {
-        const { error, errMsg } = this.state;
-
         return (
             <div className="container">
                 <div className="row">

@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import * as APIService from '../API.services';
 import Countdown from 'react-countdown-now';
-import Message from './Message';
-import Error from './Error';
-// import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+
 const Completionist = () => <span style={{color:'#F51409',backgroundColor:'#F9CEAF',padding:'10px',fontSize:'20px',fontWeight:'bold'}}>Your Time is Up...</span>;
 class Question extends React.Component {
     onOptionChange(e) {
@@ -96,7 +91,7 @@ export default class StartTest extends Component {
         if (ansArr.length) {
             var isfind = false
             ansArr.map(function (ques, i) {
-                if (ques.ques_id == ansObj.ques_id) {
+                if (ques.ques_id === ansObj.ques_id) {
                     ques.ans = ansObj.ans;
                     isfind = true;
                 }
@@ -133,7 +128,7 @@ export default class StartTest extends Component {
         }, this)
     }
     render() {
-        const { error, errMsg, testObj, milisec } = this.state;
+        const { testObj, milisec } = this.state;
 
         if (testObj) {
             return (

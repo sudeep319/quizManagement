@@ -1,7 +1,8 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link, Redirect, Switch  } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Route, Redirect, Switch  } from "react-router-dom";
 import './App.css';
 import Login from './components/Login'
+import requireAuth from './components/AuthComponent'
 import AdminDashboard from './components/Admin.dashboard'
 import UserDashboard from './components/User.dashboard'
 import TestDetails from './components/TestDetails'
@@ -13,11 +14,11 @@ function App() {
 					<div>
 					<Switch>
 						<Route exact path="/login" component={Login} />
-						<Route exact path="/admin-dashboard" component={AdminDashboard} />
-						<Route exact path="/user-dashboard" component={UserDashboard} />
-						<Route exact path="/test-details" component={TestDetails} />
-						<Route exact path="/start-test" component={StartTest} />
-						<Route exact path="/score" component={Score} />
+						<Route exact path="/admin-dashboard" component={requireAuth(AdminDashboard)} />
+						<Route exact path="/user-dashboard" component={requireAuth(UserDashboard)} />
+						<Route exact path="/test-details" component={requireAuth(TestDetails)} />
+						<Route exact path="/start-test" component={requireAuth(StartTest)} />
+						<Route exact path="/score" component={requireAuth(Score)} />
 						<Redirect from="/" to="login" />
 					</Switch>
 					</div>

@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as APIService from '../API.services';
-import Message from './Message';
-import Error from './Error';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import * as Cookie from "js-cookie";
 
-// import axios from 'axios';
 
 
 class Test extends React.Component {
@@ -45,9 +41,9 @@ class Test extends React.Component {
                 <td>{test.total_ques}</td>
                 <td>{test.total_marks}</td>
                 <td>{test.duration}</td>
-                <td>
+                <td className="text-right">
                     <Link to={this.props.myroute} onClick={this.addQuestion.bind(this, test._id)}>Add Question</Link>
-                    <Link to={this.props.myroute} onClick={this.delete.bind(this, test._id)} style={{ marginLeft: 20 + 'px' }} >Delete</Link>
+                    <Link to={this.props.myroute} onClick={this.delete.bind(this, test._id)} style={{ marginLeft: 20 + 'px', color: 'red' }} >Delete</Link>
                 </td>
             </tr>
         )
@@ -143,10 +139,12 @@ export default class AdminDashboard extends Component {
         this.setState({ ans: e.target.value });
     }
     logout = (e) => {
+        Cookie.remove('auth');
+        localStorage.removeItem("role")
         this.props.history.push('/login');
     }
     render() {
-        const { error, errMsg, showAddTestDialog, showAddQuestionDialog, selectedOption } = this.state;
+        const { showAddTestDialog, showAddQuestionDialog, test_name } = this.state;
 
         return (
             <div className="container">
@@ -174,6 +172,7 @@ export default class AdminDashboard extends Component {
                 <Dialog open={showAddTestDialog} onClose={this.closeTestDialog} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Add Test</DialogTitle>
                     <DialogContent>
+                        
                         <TextField
                             onChange={(e) => this.setState({ test_name: e.target.value })}
                             autoFocus
@@ -311,13 +310,14 @@ export default class AdminDashboard extends Component {
                             <th>Total Question</th>
                             <th>Total Marks</th>
                             <th>Duration</th>
-                            <th>Action</th>
+                            <th className="text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.testList()}
                     </tbody>
-                </table>            </div>
+                </table>
+            </div>
         );
     }
 }

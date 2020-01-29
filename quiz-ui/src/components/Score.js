@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import * as APIService from '../API.services';
-import Message from './Message';
-import Error from './Error';
-// import axios from 'axios';
 import Button from '@material-ui/core/Button';
 
 
@@ -42,7 +38,7 @@ export default class Score extends Component {
     }
 
     render() {
-        const { attemp, right, wrong, score, error, errMsg } = this.state;
+        const { attemp, right, wrong, score } = this.state;
         return (
             <div className="container mt-5 ">
                  <Button onClick={this.goHome} color="primary">

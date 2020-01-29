@@ -20,7 +20,7 @@ export const getTest = (req, res) =>{
 		}
 		data.test = test[0];
 		if (test.length != 0) {
-			Question.find({ test_id: req.params.id }).exec((err, questions) => {
+			Question.find({ test_id: req.params.id },{ans:0}).exec((err, questions) => {
 				if (err) {
 					return res.json({ 'success': false, 'message': 'Some Error in List', err });
 				}
