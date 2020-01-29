@@ -82,7 +82,7 @@ export default class Login extends Component {
                                 value={user_name}
                                 fullWidth
                                 validators={['required']}
-                                errorMessages={['this field is required']}
+                                errorMessages={['Enter username']}
                             />
                             <TextValidator
                                 label="Password"
@@ -91,7 +91,7 @@ export default class Login extends Component {
                                 value={password}
                                 fullWidth
                                 validators={['required']}
-                                errorMessages={['this field is required']}
+                                errorMessages={['Enter password']}
                             />
                             <Button className="login-btn" variant="contained" type="submit" color="primary" disableElevation>
                             Login

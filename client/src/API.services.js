@@ -1,7 +1,10 @@
 import axios from 'axios';
-
+var url = '';
+if (process.env.NODE_ENV !== 'production') {
+    url ='http://localhost:4000/'
+  }
 export const Login = async (data) => {
-   return axios.post('http://localhost:4000/api/Login', data)
+   return axios.post(url+'api/Login', data)
    .then(res => {
        return res
    })
@@ -10,7 +13,7 @@ export const Login = async (data) => {
    })
 }
 export const getTestList = ()=>{
-    return axios.get('http://localhost:4000/api/Test')
+    return axios.get(url+'api/Test')
     .then(response => {
         return response
     })
@@ -19,7 +22,7 @@ export const getTestList = ()=>{
     })
 }
 export const getTestDetails = (id)=>{
-    return axios.get('http://localhost:4000/api/Test/'+id)
+    return axios.get(url+'api/Test/'+id)
     .then(response => {
         return response
     })
@@ -28,7 +31,7 @@ export const getTestDetails = (id)=>{
     })
 }
 export const addTest = (data)=>{
-    return axios.post('http://localhost:4000/api/Test', data)
+    return axios.post(url+'api/Test', data)
     .then(response => {
         return response
     })
@@ -37,7 +40,7 @@ export const addTest = (data)=>{
     })
 }
 export const deleteTest = (id)=>{
-    return axios.delete('http://localhost:4000/api/Test/' + id)
+    return axios.delete(url+'api/Test/' + id)
         .then(response => {
             return response
         })
@@ -46,7 +49,7 @@ export const deleteTest = (id)=>{
         })
 }
 export const getQuestionList = (test_id)=>{
-    return axios.get('http://localhost:4000/api/TestQuestion'+test_id)
+    return axios.get(url+'api/TestQuestion'+test_id)
     .then(response => {
         return response
     })
@@ -55,7 +58,7 @@ export const getQuestionList = (test_id)=>{
     })
 }
 export const addQuestion = (data)=>{
-    return axios.post('http://localhost:4000/api/Question', data)
+    return axios.post(url+'api/Question', data)
     .then(response => {
         return response
     })
@@ -64,7 +67,7 @@ export const addQuestion = (data)=>{
     })
 }
 export const deleteQuestion = (id,test_id)=>{
-    return axios.delete('http://localhost:4000/api/Question/' + id+'/'+test_id)
+    return axios.delete(url+'api/Question/' + id+'/'+test_id)
         .then(response => {
             return response
         })
@@ -73,7 +76,7 @@ export const deleteQuestion = (id,test_id)=>{
         })
 }
 export const getTestScore = async (data) => {
-    return axios.post('http://localhost:4000/api/Score', data)
+    return axios.post(url+'api/Score', data)
     .then(res => {
         return res
     })
